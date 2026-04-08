@@ -36,6 +36,5 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 
-@import "../node_modules/tailwindcss/dist/lib.d.mts";
 
-1:58:29
+2:19:39
