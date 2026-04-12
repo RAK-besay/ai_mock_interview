@@ -37,4 +37,13 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 
 
-2:19:39
+
+3:24:01
+const interview ={
+role, type, level,
+techstack: techstack.split(','),
+questions: JSON.parse(questions),
+userId: userid,
+finalized: true,
+coverImage: getRandomInterviewCover(),
+createdAt: new Date().toISOString()

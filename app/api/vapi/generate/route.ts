@@ -28,12 +28,13 @@ export async function POST(request: Request) {
             `,
 
         });
+        const cleanQuestionsText = questions.replace(/```json/gi, '').replace(/```/gi, '').trim();
 
-        const interview ={
+        const interview = {
             role, type, level,
             techstack: techstack.split(','),
-            questions: JSON.parse(questions),
-            userid: userid,
+            questions: JSON.parse(cleanQuestionsText),
+            userId: userid,
             finalized: true,
             coverImage: getRandomInterviewCover(),
             createdAt: new Date().toISOString()
@@ -44,7 +45,7 @@ export async function POST(request: Request) {
         return Response.json({ success: true}, {status: 200})
 
     }catch (error) {
-        console.error(error);
+        console.error("FIREBASE OR API ERROR:", error);
 
         return Response.json({ success: false, error}, { status: 500 });
     }
