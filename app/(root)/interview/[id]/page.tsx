@@ -20,6 +20,7 @@ const Page = async ({ params } : RouteParams) => {
                     <div className="flex flex-row gap-4 items-center">
                         <Image src={getRandomInterviewCover()} alt="cover-image" width={40} height={40} className="rounded-full
                         object-cover size-[40px]" />
+
                         <h3 className="capitalize">{interview.role}Interview</h3>
                     </div>
                     <DisplayTechIcons techStack={interview.techstack}/>
@@ -28,7 +29,7 @@ const Page = async ({ params } : RouteParams) => {
             </div>
 
             <Agent userName={user?.name}
-                   type={user?.id}
+                   userId={user?.id}
                    interviewId={id}
                    type="interview"
                    questions={interview.questions}

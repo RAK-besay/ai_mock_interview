@@ -38,7 +38,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 
 
-3:24:01
+3:30
 const interview ={
 role, type, level,
 techstack: techstack.split(','),
