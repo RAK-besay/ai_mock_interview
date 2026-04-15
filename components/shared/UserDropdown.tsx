@@ -23,19 +23,14 @@ interface UserDropdownProps {
 }
 
 const UserDropdown = ({ user }: UserDropdownProps) => {
-    // 2. Initialize the router
     const router = useRouter();
 
-    // 3. Create a function to handle the logout process
     const handleLogout = async () => {
         try {
-            // 1. ACTUALLY destroy the session first!
             await logOutUser();
 
-            // 2. Refresh the router to clear any cached page data
             router.refresh();
 
-            // 3. Send them to the sign-in page
             router.push('/sign-in');
         } catch (error) {
             console.error("Error logging out:", error);
@@ -79,7 +74,6 @@ const UserDropdown = ({ user }: UserDropdownProps) => {
 
                 <DropdownMenuSeparator className="bg-gray-800" />
 
-                {/* 5. Attach the onClick handler to the logout button */}
                 <DropdownMenuItem
                     onClick={handleLogout}
                     className="text-red-500 hover:bg-red-950/30 cursor-pointer focus:text-red-500"

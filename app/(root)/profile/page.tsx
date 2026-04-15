@@ -62,7 +62,6 @@ const ProfilePage = () => {
         try {
             let uploadedImageUrl = undefined;
 
-            // NEW: Upload the image to Firebase Storage FIRST
             if (imageFile) {
                 toast.loading("Uploading profile picture...", { id: toastId });
                 const fileRef = ref(storage, `avatars/${Date.now()}_${imageFile.name}`);
@@ -70,18 +69,17 @@ const ProfilePage = () => {
                 uploadedImageUrl = await getDownloadURL(fileRef);
             }
 
-            // Send everything to your Server Action
             const result = await updateUserProfile({
                 name: values.name,
                 password: values.password,
-                imageUrl: uploadedImageUrl, // Pass the new image URL!
+                imageUrl: uploadedImageUrl,
             });
 
             if (result.success) {
                 toast.success(result.message, { id: toastId });
                 if (values.password) form.setValue('password', '');
                 setEditingField(null);
-                setImageFile(null); // Clear the file state
+                setImageFile(null);
 
                 router.push('/');
             } else {
@@ -96,7 +94,7 @@ const ProfilePage = () => {
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-            setImageFile(file); // Save the actual file to upload later
+            setImageFile(file);
 
             const reader = new FileReader();
             reader.onloadend = () => setImagePreview(reader.result as string);
@@ -106,14 +104,13 @@ const ProfilePage = () => {
 
     if (isLoading) return <div className="flex h-screen items-center justify-center text-white">Loading profile...</div>;
 
-    // Helper component to render the toggleable inline-edit rows
     const renderEditableRow = (
         fieldName: 'name' | 'email' | 'password',
         label: string,
         icon: React.ReactNode,
         currentValue: string | undefined,
         isPassword = false,
-        allowEdit = true // Added this so we can lock the email field visually
+        allowEdit = true
     ) => {
         const isEditing = editingField === fieldName;
 
@@ -174,7 +171,7 @@ const ProfilePage = () => {
                     <p className="text-gray-400">Manage your personal information and security preferences.</p>
                 </div>
                 <Link href="/" className="text-sm font-semibold text-primary-200 hover:underline">
-                    ← Back to Home
+                    ← Back to Dashboard
                 </Link>
             </div>
 
@@ -217,7 +214,6 @@ const ProfilePage = () => {
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                            {/* Email is visually consistent, but allowEdit is false to prevent errors */}
                             {renderEditableRow('email', 'Email Address', <Mail className="w-4 h-4 text-primary-200"/>, form.getValues('email'), false, false)}
                             {renderEditableRow('password', 'Password', <Lock className="w-4 h-4 text-primary-200"/>, form.getValues('password'), true)}
                         </CardContent>

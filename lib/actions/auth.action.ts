@@ -8,7 +8,7 @@ import { revalidatePath } from "next/cache";
 const ONE_WEEK =60 * 60 * 24 * 7 ;
 
 export async function signUp(params: SignUpParams){
-    const { uid, name, email } = params;
+    const { uid, name, email, imageUrl } = params;
 
     try{
         const userRecord = await db.collection('users').doc(uid).get();
@@ -21,7 +21,9 @@ export async function signUp(params: SignUpParams){
         }
 
         await db.collection('users').doc(uid).set({
-            name,email
+            name,
+            email,
+            imageUrl: imageUrl || ""
         })
 
         return {
@@ -121,10 +123,7 @@ export async function isAuthenticated() {
 
 export async function logOutUser() {
     try {
-        // 1. You MUST await cookies() in Next.js 15!
         const cookieStore = await cookies();
-
-        // 2. Delete the session cookie
         cookieStore.delete("session");
 
         return { success: true };
@@ -144,7 +143,6 @@ export async function updateUserProfile(params: { name?: string; password?: stri
 
         let isUpdated = false;
 
-        // 1. Update the name
         if (params.name && params.name !== currentUser.name) {
             await db.collection('users').doc(currentUser.id).update({
                 name: params.name
@@ -152,7 +150,6 @@ export async function updateUserProfile(params: { name?: string; password?: stri
             isUpdated = true;
         }
 
-        // 2. Update the password
         if (params.password && params.password.length >= 6) {
             await auth.updateUser(currentUser.id, {
                 password: params.password
@@ -160,7 +157,6 @@ export async function updateUserProfile(params: { name?: string; password?: stri
             isUpdated = true;
         }
 
-        // 3. NEW: Update the Image URL
         if (params.imageUrl) {
             await db.collection('users').doc(currentUser.id).update({
                 imageUrl: params.imageUrl

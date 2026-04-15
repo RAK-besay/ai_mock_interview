@@ -22,7 +22,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
         <section className="section-feedback flex flex-col gap-10 px-4 md:px-8 w-full overflow-x-hidden">
 
             <div className="flex flex-col justify-center text-center w-full">
-                {/* Changed text size for mobile and added break-words */}
+
                 <h1 className="text-3xl md:text-4xl font-semibold break-words">
                     Feedback on the Interview - <br className="sm:hidden" />
                     <span className="capitalize text-primary-200">{interview.role}</span> Interview

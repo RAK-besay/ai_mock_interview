@@ -4,7 +4,6 @@ import UserDropdown from './UserDropdown';
 import { getCurrentUser } from '@/lib/actions/auth.action';
 
 const Navbar = async () => {
-    // Fetch the currently logged-in user from your database
     const user = await getCurrentUser();
 
     return (
