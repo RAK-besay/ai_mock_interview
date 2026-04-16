@@ -16,6 +16,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { getCurrentUser, updateUserProfile } from '@/lib/actions/auth.action';
+import { LogoutModal } from "@/components/shared/LogoutModal";
 
 const formSchema = z.object({
     name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -28,6 +29,7 @@ const ProfilePage = () => {
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [editingField, setEditingField] = useState<'name' | 'email' | 'password' | null>(null);
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
     const router = useRouter();
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -219,10 +221,26 @@ const ProfilePage = () => {
                         </CardContent>
                     </Card>
 
-                    <div className="flex justify-end pt-4 pb-12">
-                        <Button type="submit" className="bg-primary-200 hover:bg-primary-200/80 text-dark-100 font-bold px-10 py-6 text-lg rounded-full shadow-[0_0_20px_rgba(168,85,247,0.3)] transition-all hover:scale-105">
+                    <div className="flex justify-end items-center gap-4 pt-4 pb-12">
+
+                        <LogoutModal isOpen={showLogoutModal} setIsOpen={setShowLogoutModal} />
+
+                        <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => setShowLogoutModal(true)}
+                            className="bg-transparent border border-red-900/50 text-red-500 hover:bg-red-900/20 hover:text-red-400 font-bold px-10 py-6 text-lg rounded-full transition-all"
+                        >
+                            Log out
+                        </Button>
+
+                        <Button
+                            type="submit"
+                            className="bg-primary-200 hover:bg-primary-200/80 text-dark-100 font-bold px-10 py-6 text-lg rounded-full shadow-[0_0_20px_rgba(168,85,247,0.3)] transition-all hover:scale-105"
+                        >
                             Save Changes
                         </Button>
+
                     </div>
 
                 </form>

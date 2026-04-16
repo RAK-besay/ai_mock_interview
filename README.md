@@ -238,8 +238,6 @@ New-Item -Name ".env.local" -ItemType "file"
 touch .env.local
 ```
 
-Populate it using the full reference in the [Environment Variables](#environment-variables) section below.
-
 ### 4. Run the Development Server
 
 ```bash

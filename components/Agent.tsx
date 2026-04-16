@@ -19,7 +19,7 @@ interface SavedMessage {
     content: string;
 }
 
-const Agent = ({userName, userId, type, interviewId, questions }: AgentProps) => {
+const Agent = ({userName, userId, imageUrl, type, interviewId, questions }: AgentProps) => {
     const router = useRouter();
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
@@ -133,8 +133,13 @@ const Agent = ({userName, userId, type, interviewId, questions }: AgentProps) =>
 
                 <div className="card-border">
                     <div className="card-content">
-                        <Image src="/user-avatar.png" alt="user-avatar" width={540} height={540} className="rounderd-full
-                    object-cover size-[120px]" />
+                        <Image
+                            src={imageUrl || "/user-avatar.png"}
+                            alt="user-avatar"
+                            width={120}
+                            height={120}
+                            className="rounded-full object-cover size-[120px]"
+                        />
                         <h3>{userName}</h3>
                     </div>
                 </div>
