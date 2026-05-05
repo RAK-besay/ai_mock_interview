@@ -144,24 +144,24 @@ const Agent = ({userName, userId, imageUrl, type, interviewId, questions }: Agen
                     </div>
                 </div>
             </div>
-                {messages.length > 0 && (
-                    <div className="transcript-border">
-                        <div className="transcript">
-                            <p key={latestMessage} className={cn('transition-opacity duration-500 opacity-0',
+            {messages.length > 0 && (
+                <div className="transcript-border">
+                    <div className="transcript">
+                        <p key={latestMessage} className={cn('transition-opacity duration-500 opacity-0',
                             'animate-fadeIn opacity-100')}>
-                                {latestMessage}
-                            </p>
-                        </div>
+                            {latestMessage}
+                        </p>
                     </div>
-                )}
+                </div>
+            )}
 
             <div className="w-full flex justify-center">
                 {callStatus !== 'ACTIVE'? (
                     <button className="relative btn-call" onClick={handleCall}>
                         <span className={cn('absolute animate-png rounded-full opacity-75',
-                        callStatus !== 'CONNECTING' && 'hidden')}/>
+                            callStatus !== 'CONNECTING' && 'hidden')}/>
 
-                            <span>
+                        <span>
                                {isCallInactiveOrFinished ? 'CALL' : '. . .'}
                             </span>
                     </button>
